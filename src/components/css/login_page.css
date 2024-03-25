@@ -1,0 +1,62 @@
+body{
+   font-family: 'Poppins';
+}
+
+.vaagdevi_logo{
+    height: 70px;
+ }
+
+ .social_logos{
+    border-radius: 25px;
+ }
+
+ .register-now{
+    text-decoration-line: underline;
+    color: orange;
+ }
+
+ .titles{
+    margin-left: -15px;
+ }
+
+ .p-titles{
+    margin-top: 6px;
+ }
+
+ .card-border-radius{
+    border-radius: 10%;
+ }
+
+ .image_container {
+    background-image: url("../images/background_images/login_page.JPG");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.main_container {
+    background-image: url("../images/background_images/background_image_login.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.row.no-gutters {
+   margin-right: 0;
+   margin-left: 0;
+}
+
+.container-fluid.no-gutters{
+   margin-left: 0;
+   margin-right: 0;
+}
+
+.col-lg-7.no-gutters,
+.col-lg-5.no-gutters {
+   padding-right: 0;
+   padding-left: 0;
+}
+
+.no-padding{
+   padding-left: 0;
+   padding-right: 0;
+}
