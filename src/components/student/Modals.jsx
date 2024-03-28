@@ -65,6 +65,12 @@ export default function Modals({
                                     aria-describedby="helpId"
                                 />
                             </div>
+                            <div className="mb-3">
+                                <div className="form-check">
+                                    <input required className="form-check-input" type="checkbox" value="t&c" id="t&c" />
+                                    <label className="form-check-label" htmlFor="t&c"> <u>Terms & Conditions</u> </label>
+                                </div>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button type="submit" className="btn btn-primary">Upload Project</button>
@@ -103,6 +109,12 @@ export default function Modals({
                                     required
                                     aria-describedby="helpId"
                                 />
+                            </div>
+                            <div className="mb-3">
+                                <div className="form-check">
+                                    <input required className="form-check-input" type="checkbox" value="t&c2" id="t&c2" />
+                                    <label className="form-check-label" htmlFor="t&c2"> <u>Terms & Conditions</u> </label>
+                                </div>
                             </div>
                         </div>
                         <div className="modal-footer">
@@ -194,6 +206,20 @@ export default function Modals({
                                     }}
                                 />
                             </div>
+
+                            <div className="mb-3">
+                                <label htmlFor="internshipType" className="form-label">Internship Type</label>
+                                <select
+                                    className="form-select form-select-lg"
+                                    name="internshipType"
+                                    id="internshipType"
+                                >
+                                    <option defaultValue={"On-Site"}>On-Site</option>
+                                    <option defaultValue={"Remote"}>Remote</option>
+                                    <option defaultValue={"Hybrid"}>Hybrid</option>
+                                </select>
+                            </div>
+
                             <div className="mb-2">
                                 <label htmlFor="internshipFile" className="form-label">Upload File</label>
                                 <input
@@ -204,6 +230,12 @@ export default function Modals({
                                     placeholder="Enter your file"
                                     aria-describedby="fileHelpId"
                                 />
+                            </div>
+                            <div className="mb-3">
+                                <div className="form-check">
+                                    <input required className="form-check-input" type="checkbox" value="t&c3" id="t&c3" />
+                                    <label className="form-check-label" htmlFor="t&c3"> <u>Terms & Conditions</u> </label>
+                                </div>
                             </div>
                             
                         </div>
@@ -289,6 +321,12 @@ export default function Modals({
                                     placeholder="Enter your file"
                                     aria-describedby="fileHelpId"
                                 />
+                            </div>
+                            <div className="mb-3">
+                                <div className="form-check">
+                                    <input required className="form-check-input" type="checkbox" value="t&c4" id="t&c4" />
+                                    <label className="form-check-label" htmlFor="t&c4"> <u>Terms & Conditions</u> </label>
+                                </div>
                             </div>
                             
                         </div>

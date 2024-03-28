@@ -16,9 +16,7 @@ import swal from 'sweetalert';
 import Modals from './FacultyModals';
 
 export default function FacultyHome() {
-    let {jwtToken} = useContext(AuthContext)
-    let {logoutUser} = useContext(AuthContext)
-    let {redirectUser} = useContext(AuthContext)
+    const {logoutUser, jwtToken, redirectUser} = useContext(AuthContext)
     const [username, setUsername] = useState("")
     const [faculty, setFaculty] = useState({});
     const [profilePictureError, setProfilePictureError] = useState(false);
@@ -46,6 +44,7 @@ export default function FacultyHome() {
                 setFaculty(response.data);
                 await getFacultyImage(response.data.profilePicture);
             } catch (e) {
+                console.log(e)
                 logoutUser();
             }
         }
@@ -65,15 +64,12 @@ export default function FacultyHome() {
             }
         }
         
-        if(!jwtToken){
-            return <Navigate to="/login" />;
-        }
-        redirectUser("FACULTY");
         getFacultyObject();      
         try{setUsername(jwtDecode(jwtToken).sub)}catch(e){}
+        
+    }, [renderPage]);
     
-    }, []);
-
+    
     useEffect(() => {
         getCertifications()
         getExperiences()
@@ -82,9 +78,11 @@ export default function FacultyHome() {
         getDocuments()
         getFacultySocial()
     }, [renderPage])
-
-
-
+    
+    if(!jwtToken){
+        return <Navigate to="/login" />;
+    }
+    
     async function getFacultySocial(){
         try {
             const url = "http://127.0.0.1:9000/social/get-all-socials-by-id";
@@ -101,6 +99,7 @@ export default function FacultyHome() {
                 setSocialProfileError(false)
             }
         } catch (e) {
+            console.log(e)
             logoutUser();
         }
     }
@@ -117,6 +116,7 @@ export default function FacultyHome() {
                     'Authorization': 'Bearer ' + jwtToken,
                 }
             });
+            setRenderPage(true)
         } catch (error) {
             swal("Error!", "Error Uploading Image, Please upload lower than 1MB", "error");
         }
@@ -180,6 +180,7 @@ export default function FacultyHome() {
             }));
             setCertifications(updatedCertifications);
         } catch (e) {
+            console.log(e)
             logoutUser();
         }
     }
@@ -228,6 +229,7 @@ export default function FacultyHome() {
             });
             setExperiences(response.data);
         } catch (e) {
+            console.log(e)
             logoutUser();
         }
     }
@@ -276,6 +278,7 @@ export default function FacultyHome() {
             });
             setResearchPapers(response.data);
         } catch (e) {
+            console.log(e)
             logoutUser();
         }
     }
@@ -322,6 +325,7 @@ export default function FacultyHome() {
             });
             setProjects(response.data);
         } catch (e) {
+            console.log(e)
             logoutUser();
         }
     }
@@ -529,7 +533,7 @@ export default function FacultyHome() {
                                                 <p>Type: {certification.type}</p>
                                             </div>
                                             <div className="col-6">
-                                                <img src={certification.certify} alt='certification_certificate' className='img-fluid types' />
+                                                <img src={certification.certify} alt='certification_certificate' className='img-fluid' />
                                             </div>
                                         </div>
                                     </div>
@@ -636,11 +640,11 @@ export default function FacultyHome() {
                             </div>
                         </div>
                         <div className="collapse shadow" id="personalDocumentsDropdown">
-                            <div className="row mt-1 mb-1 d-flex justify-content-center text-align-center">
-                                <div className="col-6">
+                            <div className="row mt-1 mb-1">
+                                <div className="col-6 d-flex justify-content-center text-align-center">
                                     <img src={personalDocuments.aadharCard} alt="Aadhar Card" className='img-fluid' />
                                 </div>
-                                <div className="col-6">
+                                <div className="col-6 d-flex justify-content-center text-align-center">
                                     <img src={personalDocuments.panCard} alt="Pan Card" className='img-fluid' />
                                 </div>
                             </div>

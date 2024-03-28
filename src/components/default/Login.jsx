@@ -11,11 +11,11 @@ export default function Login() {
     let [student, setStudent] = useState(true);
     let [faculty, setFaculty] = useState(false);
     let [admin, setAdmin] = useState(false);
-    useEffect(() => {
-        if(jwtToken){
-            redirectUser(null);
-        }
-    }, [])
+
+    if(jwtToken){
+        redirectUser(null);
+    }
+    
     return (
         <div>
             <Helmet>

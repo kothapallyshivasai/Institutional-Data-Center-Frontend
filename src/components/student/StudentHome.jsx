@@ -27,14 +27,10 @@ export default function StudentHome() {
     const [internships, setInternships] = useState([])
 
     useEffect(() => {
-        if (!jwtToken) {
-            logoutUser();
-        }
-        redirectUser("STUDENT");
         getStudentObject();      
         try{setUsername(jwtDecode(jwtToken).sub)}catch(e){}
     }, []);
-
+    
     useEffect(() => {
         async function getSkills() {
             try {
@@ -50,7 +46,7 @@ export default function StudentHome() {
                 logoutUser();
             }
         }
-    
+        
         async function getProjects() {
             try {
                 const url = "http://127.0.0.1:9000/project/get-all-projects-by-id";
@@ -65,7 +61,7 @@ export default function StudentHome() {
                 logoutUser();
             }
         }
-    
+        
         async function getAchievements() {
             try {
                 const url = "http://127.0.0.1:9000/certification/get-all-certifications-by-id";
@@ -95,7 +91,7 @@ export default function StudentHome() {
                 logoutUser();
             }
         }
-
+        
         async function getInternships() {
             try {
                 const url = "http://127.0.0.1:9000/internship/get-all-internships-by-id";
@@ -127,17 +123,24 @@ export default function StudentHome() {
                 logoutUser();
             }
         }
-    
+        
         async function fetchData() {
             await getSkills();
             await getProjects();
             await getAchievements();
             await getInternships();            
         }
-    
+        
         fetchData();
     }, [renderPage]); 
-
+    
+    useEffect(() => {
+        if (!jwtToken) {
+            logoutUser();
+        }
+        redirectUser("STUDENT");
+    }, [logoutUser])
+    
     async function getStudentObject() {
         try {
             const url = "http://127.0.0.1:9000/student/get-student/" + jwtDecode(jwtToken).sub;
@@ -174,6 +177,8 @@ export default function StudentHome() {
             swal("Good job!", "Skill Uploaded!", "success");
             const modal = document.getElementById("skillModalButton");
             modal.click();
+            e.target.domain.value = "";
+            e.target.skill.value = "";
         } catch (error) {
             console.log(error)
             swal("Error!", "Something Went Wrong, Please try again...", "error");
@@ -206,6 +211,11 @@ export default function StudentHome() {
             swal("Good job!", "Achievement Uploaded!", "success");
             const modal = document.getElementById("achievementModalButton");
             modal.click();
+            e.target.certificationName.value = "";
+            e.target.expiryDate.value = "";
+            e.target.verification.value = "";
+            e.target.type.value = "";
+            e.target.achievementFile.value = null;
         } catch (error) {
             console.log(error)
             swal("Error!", "Something Went Wrong, Please try again...", "error");
@@ -237,6 +247,11 @@ export default function StudentHome() {
             swal("Good job!", "Project Uploaded!", "success");
             const modal = document.getElementById("projectModalButton");
             modal.click();
+            e.target.title.value = "";
+            e.target.description.value = "";
+            e.target.tags.value = "";
+            e.target.url.value = "";
+            e.target.verification_url.value = "";
         } catch (error) {
             console.log(error)
             swal("Error!", "Something Went Wrong, Please try again...", "error");
@@ -255,6 +270,7 @@ export default function StudentHome() {
             formData.append('startDate', e.target.startDate.value);
             formData.append('endDate', e.target.endDate.value);
             formData.append('file', e.target.internshipFile.files[0]);
+            formData.append('internshipType', e.target.internshipType.value)
     
             const response = await axios.post(
               'http://127.0.0.1:9000/internship/add-internship',
@@ -270,6 +286,13 @@ export default function StudentHome() {
             swal("Good job!", "Internship Uploaded!", "success");
             const modal = document.getElementById("internshipModalButton");
             modal.click();
+            e.target.internshipName.value = "";
+            e.target.companyName.value = "";
+            e.target.domain.value = "";
+            e.target.startDate.value = "";
+            e.target.endDate.value = "";
+            e.target.internshipFile.value = null;
+            e.target.internshipType.value = "";
         } catch (error) {
             console.log(error)
             swal("Error!", "Something Went Wrong, Please try again...", "error");
@@ -402,7 +425,7 @@ export default function StudentHome() {
                                                 <p>Type: {achievement.type}</p>
                                             </div>
                                             <div className="col-6">
-                                                <img src={achievement.certify} alt='achievement_certificate' className='img-fluid types' />
+                                                <img src={achievement.certify} alt='achievement_certificate' className='img-fluid' />
                                             </div>
                                         </div>
                                     </div>
@@ -421,7 +444,7 @@ export default function StudentHome() {
                                                 <p>Type: {achievement.type}</p>
                                             </div>
                                             <div className="col-6">
-                                                <img src={achievement.certify} alt='achievement_certificate' className='img-fluid types' />
+                                                <img src={achievement.certify} alt='achievement_certificate' className='img-fluid' />
                                             </div>
                                         </div>
                                     </div>
@@ -490,11 +513,12 @@ export default function StudentHome() {
                                             <p>Internship Name: {internship.internshipName}</p>
                                             <p>Company Name: {internship.companyName}</p>
                                             <p>Domain: {internship.domain}</p>
+                                            <p>Internship Type: {internship.internshipType}</p>
                                             <p>Start Date: {internship.startDate}</p>
                                             <p>End Date: {internship.endDate}</p>
                                         </div>
                                         <div className="col-6">
-                                            <img src={internship.verification} alt='internship_certificate' className='img-fluid types' />
+                                            <img src={internship.verification} alt='internship_certificate' className='img-fluid' />
                                         </div>
                                     </div>
                                 </div>

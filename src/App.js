@@ -25,7 +25,7 @@ function App() {
             <Route path="/faculty" element={<Suspense fallback={<div className="spinner-container">
                                                                 <div className="spinner-border" role="status"></div>
                                                               </div>}><LazyFacultyHome /></Suspense>} />
-            <Route path="/admin" element={<Suspense fallback={<div className="spinner-container">
+            <Route path="/admin/student" element={<Suspense fallback={<div className="spinner-container">
                                                                 <div className="spinner-border" role="status"></div>
                                                               </div>}><LazyAdminHome /></Suspense>} />
           </Routes>

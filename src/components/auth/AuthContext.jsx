@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
             if(role === response.data.role){
                 return null;
             }
-            navigate("/admin")
+            navigate("/admin/student")
         }
       } catch (error) {
         logoutUser()
@@ -75,13 +75,15 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       swal("Error!", "Username or Password is Incorrect!", "error");
+      e.target.username.value = "";
+      e.target.password.value = "";
     }
   };
 
    const logoutUser = async () => {
         setjwtToken(null);
         localStorage.removeItem('jwtToken');
-        navigate("/")
+        navigate('/login')
    }
 
   const contextData = {
