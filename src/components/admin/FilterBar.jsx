@@ -1,24 +1,46 @@
 import React, { useState } from 'react';
 
 export default function FilterBar({setDepartmentChoice, setCgpaChoice, setBatchChoice, batchChoice, setSkillChoice, setInternshipChoice,
-                                   uniqueBatches, uniqueDepartments, uniqueSkills, uniqueCertifications, setCertificationChoice}) {
+                                   uniqueBatches, uniqueDepartments, uniqueSkills, uniqueCertifications, uniqueCertifications2, setCertificationChoice}) {
   
   const [showAllSkills, setShowAllSkills] = useState(false);
   const [showAllDepartments, setShowAllDepartments] = useState(false);
   const [showAllCertifications, setShowAllCertifications] = useState(false);
+  const [showAllCertifications2, setShowAllCertifications2] = useState(false);
+
+  const clearFilters = () => {
+    setDepartmentChoice(null);
+    setCgpaChoice(null);
+    setBatchChoice(null);
+    setSkillChoice(null);
+    setInternshipChoice(null);
+    setCertificationChoice(null);
+
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(button => {
+      button.checked = false;
+    });
+  };
 
   return (
     <div>
       <div className="card shadow">
         <div className="card-body">
           <div className="row">
-            <h5><b>Filters</b></h5>
+            <div className="col-6 d-flex justify-content-start align-items-center">
+              <h5><b>Filters</b></h5>
+            </div>
+            <div className="col-6 d-flex justify-content-end align-items-center">
+              <button className="btn clear_filter" onClick={clearFilters}>
+                Clear Filters
+              </button>
+            </div>
           </div>
           <hr />
 
 
           <div>
-            <b>Certifications</b>
+            <b>Technical Achievements</b>
             {uniqueCertifications.slice(0, showAllCertifications ? uniqueCertifications.length : 3).map((certification, index) => (
               <div className={`form-check ${index === 0 ? 'mt-2' : ''}`} key={index}>
                 <input
@@ -31,6 +53,7 @@ export default function FilterBar({setDepartmentChoice, setCgpaChoice, setBatchC
                 <label className="form-check-label" htmlFor={`c${index}`}>
                   {certification}
                 </label>
+                <div className={index === uniqueCertifications.length - 1 ? 'mb-2' : ''}></div>
               </div>
             ))}
             </div>
@@ -39,6 +62,34 @@ export default function FilterBar({setDepartmentChoice, setCgpaChoice, setBatchC
               <>
                 <div className='vaagdevi_link_colors mb-3' onClick={() => setShowAllCertifications(!showAllCertifications)}>
                   {showAllCertifications ? 'View less?' : 'View more?'}
+                </div>
+              </>
+            )}
+
+
+            <div>
+              <b>Non-Technical Achievements</b>
+              {uniqueCertifications2.slice(0, showAllCertifications2 ? uniqueCertifications2.length : 3).map((certification, index) => (
+                <div className={`form-check ${index === 0 ? 'mt-2' : ''}`} key={index}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id={`c${index}`}
+                    name="certification"
+                    onClick={() => setCertificationChoice(certification)}
+                  />
+                  <label className="form-check-label" htmlFor={`c${index}`}>
+                    {certification}
+                  </label>
+                  <div className={index === uniqueCertifications2.length - 1 ? 'mb-2' : ''}></div>
+                </div>                
+              ))}
+            </div>
+
+            {uniqueCertifications2.length > 3 && (
+              <>
+                <div className='vaagdevi_link_colors mb-3' onClick={() => setShowAllCertifications2(!showAllCertifications2)}>
+                  {showAllCertifications2 ? 'View less?' : 'View more?'}
                 </div>
               </>
             )}
@@ -66,6 +117,7 @@ export default function FilterBar({setDepartmentChoice, setCgpaChoice, setBatchC
                 <label className="form-check-label" htmlFor={`dept_${index}`}>
                   {department}
                 </label>
+                <div className={index === uniqueDepartments.length - 1 ? 'mb-2' : ''}></div>
               </div>
             ))}
           </div>
@@ -108,6 +160,7 @@ export default function FilterBar({setDepartmentChoice, setCgpaChoice, setBatchC
                 <label className="form-check-label" htmlFor={`sk${index}`}>
                   {skill}
                 </label>
+                <div className={index === uniqueSkills.length - 1 ? 'mb-2' : ''}></div>
               </div>
             ))}
           </div>

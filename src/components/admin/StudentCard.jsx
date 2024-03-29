@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function StudentCard({ student }) {
   return (
@@ -15,10 +16,10 @@ export default function StudentCard({ student }) {
                             <div className="col-sm-3 col-4 text-muted">
                                 <i className="bi bi-dot"></i> CGPA: {student.cgpa}
                             </div>
-                            <div className="col-sm-3 col-4 text-muted">
+                            <div className="col-5 text-muted">
                                 <i className="bi bi-dot"></i> Dept: {student.department}
                             </div>
-                            <div className="col-sm-3 col-4 text-muted">
+                            <div className="col-sm-4 col-3 text-muted">
                                 <i className="bi bi-dot"></i> {student.batch}
                             </div>
                         </div>
@@ -47,9 +48,9 @@ export default function StudentCard({ student }) {
                                 </>
                                 : "No internships."}
                         </div>
-                        <div className="vaagdevi_link_colors mt-1">
+                        <Link to={"/admin/student/" + student.studentId} className="vaagdevi_link_colors nav-link mt-1">
                             See Full Profile
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>

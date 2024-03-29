@@ -27,6 +27,7 @@ export default function AdminHome() {
     const [uniqueDepartments, setUniqueDepartments] = useState([])
     const [uniqueSkills, setUniqueSkills] = useState([])
     const [uniqueCertifications, setUniqueCertifications] = useState([])
+    const [uniqueCertifications2, setUniqueCertifications2] = useState([])
 
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -44,8 +45,11 @@ export default function AdminHome() {
                 const unqskill = await getUniqueSkills(logoutUser, jwtToken)
                 setUniqueSkills(unqskill)
 
-                const unqCertification = await getUniqueCertifications(logoutUser, jwtToken)
+                const unqCertification = await getUniqueCertificationsTechnical(logoutUser, jwtToken)
                 setUniqueCertifications(unqCertification)
+
+                const unqCertification2 = await getUniqueCertificationsNonTechnical(logoutUser, jwtToken)
+                setUniqueCertifications2(unqCertification2)
 
                 const url = "http://127.0.0.1:9000/student/get-all-students";
                 const response = await axios.get(url, {
@@ -214,7 +218,7 @@ export default function AdminHome() {
                         <FilterBar setDepartmentChoice={setDepartmentChoice} setCgpaChoice={setCgpaChoice} setBatchChoice={setBatchChoice} 
                                    batchChoice={batchChoice} uniqueBatches={uniqueBatches} uniqueDepartments={uniqueDepartments}
                                    uniqueSkills={uniqueSkills} uniqueCertifications={uniqueCertifications} setSkillChoice={setSkillChoice}
-                                   setCertificationChoice={setCertificationChoice} setInternshipChoice={setInternshipChoice}
+                                   setCertificationChoice={setCertificationChoice} setInternshipChoice={setInternshipChoice} uniqueCertifications2={uniqueCertifications2}
                         />
                     </div>
                     <div className="col-xl-7 col-lg-8 offset-xl-1">
@@ -285,9 +289,25 @@ async function getUniqueSkills(logoutUser, jwtToken) {
     }
 }
 
-async function getUniqueCertifications(logoutUser, jwtToken) {
+async function getUniqueCertificationsTechnical(logoutUser, jwtToken) {
     try {
-        const url = "http://127.0.0.1:9000/certification/get-unique-certifications";
+        const url = "http://127.0.0.1:9000/certification/get-unique-certifications-technical";
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + jwtToken
+            }
+        });
+        return response.data;
+    }
+    catch(e){
+        logoutUser()
+    }
+}
+
+async function getUniqueCertificationsNonTechnical(logoutUser, jwtToken) {
+    try {
+        const url = "http://127.0.0.1:9000/certification/get-unique-certifications-non-technical";
         const response = await axios.get(url, {
             headers: {
                 'Content-Type': 'application/json',

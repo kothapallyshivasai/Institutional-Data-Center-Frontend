@@ -344,7 +344,7 @@ export default function StudentHome() {
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-7 col-6 d-flex justify-content-end">
                     <div className="align-items-center">
-                        <li className="nav-item btn border-secondary navbar_button dropdown mt-4 li_padding">
+                        <li className="nav-item btn border-secondary navbar_button dropdown mt-3 li_padding">
                             <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src={user_logo} alt="user_logo" className='img-fluid user_logo' />
                                 {" " + student.studentName}
