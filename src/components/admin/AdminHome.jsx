@@ -63,15 +63,43 @@ export default function AdminHome() {
                     return { ...student, cgpa: newCpga };;
                 }));
 
+                const studentIds = await getUniqueStudentIdsBySKill(jwtToken);
+
                 const studentsWithSkills = await Promise.all(studentsWithImages.map(async student => {
-                    const skillData = await getSkillsByStudent(jwtToken, student.studentId);
-                    return {...student, skills: skillData};
+                    if (studentIds.includes(student.studentId)) {
+                        const skillData = await getSkillsByStudent(jwtToken, student.studentId);
+                        return { ...student, skills: skillData };
+                    } else {
+                        return { ...student, skills: [] };
+                    }
+                }));
+
+
+                const studentIds2 = await getUniqueStudentIdsByCertifcation(jwtToken)
+
+                const studentsWithCertifactions = await Promise.all(studentsWithSkills.map(async student => {
+                    if (studentIds2.includes(student.studentId)) {
+                        const certificationData = await getCertificationsByStudent(jwtToken, student.studentId);
+                        return { ...student, certifications: certificationData };
+                    } else {
+                        return { ...student, certifications: [] };
+                    }
                 }))
 
-                setTotalStudents(studentsWithSkills);
-                setModifiedStudents(studentsWithSkills);
+                const studentIds3 = await getUniqueStudentIdsByInternship(jwtToken)
+
+                const studentsWithInternships = await Promise.all(studentsWithCertifactions.map(async student => {
+                    if (studentIds3.includes(student.studentId)) {
+                        const internshipData = await getInternshipsByStudent(jwtToken, student.studentId);
+                        return { ...student, internships: internshipData };
+                    } else {
+                        return { ...student, internships: [] };
+                    }
+                }))
+
+                setTotalStudents(studentsWithInternships);
+                setModifiedStudents(studentsWithInternships);
             } catch (e) {
-                console.log(e)
                 logoutUser();
             }
         }
@@ -93,7 +121,7 @@ export default function AdminHome() {
 
         
         getStudentData()
-    }, []);
+    }, [jwtToken, logoutUser]);
 
     // Filters
     useEffect(() => {
@@ -116,15 +144,50 @@ export default function AdminHome() {
 
         // skill
         if (skillChoice) {
-            filteredStudents = filteredStudents.filter(student => 
-                student.skills && 
-                Array.isArray(student.skills) && 
-                student.skills.some(skill => skill.domain.includes(skillChoice)) 
-            );
+            filteredStudents = filteredStudents.filter(student => {
+                return (
+                    student.skills && 
+                    Array.isArray(student.skills) && 
+                    student.skills.length !== 0 &&
+                    student.skills.some(skill => {
+                        return skill && skill.includes(skillChoice);
+                    })
+                );
+            });
         }
+
+        // certification
+        if (certificationChoice){
+            filteredStudents = filteredStudents.filter(student => {
+                return (
+                    student.certifications && 
+                    Array.isArray(student.certifications) && 
+                    student.certifications.length !== 0 &&
+                    student.certifications.some(certification => {
+                        return certification && certification.includes(certificationChoice);
+                    })
+                );
+            });
+        }
+
+
+        // internship
+        if (internshipChoice) {
+            filteredStudents = filteredStudents.filter(student => {
+                return (
+                    student.internships && 
+                    Array.isArray(student.internships) && 
+                    student.internships.length !== 0 &&
+                    student.internships.some(internship => {
+                        return internship && internship.includes(internshipChoice);
+                    })
+                );
+            });
+        }
+
     
         setModifiedStudents(filteredStudents);
-    }, [departmentChoice, cgpaChoice, batchChoice, skillChoice])
+    }, [departmentChoice, cgpaChoice, batchChoice, skillChoice, certificationChoice, internshipChoice, totalStudents])
     
     validateAdmin()
 
@@ -151,6 +214,7 @@ export default function AdminHome() {
                         <FilterBar setDepartmentChoice={setDepartmentChoice} setCgpaChoice={setCgpaChoice} setBatchChoice={setBatchChoice} 
                                    batchChoice={batchChoice} uniqueBatches={uniqueBatches} uniqueDepartments={uniqueDepartments}
                                    uniqueSkills={uniqueSkills} uniqueCertifications={uniqueCertifications} setSkillChoice={setSkillChoice}
+                                   setCertificationChoice={setCertificationChoice} setInternshipChoice={setInternshipChoice}
                         />
                     </div>
                     <div className="col-xl-7 col-lg-8 offset-xl-1">
@@ -250,7 +314,7 @@ function validateAdmin(jwtToken, logoutUser){
 
 async function getSkillsByStudent(jwtToken, studentId){
     try{
-        const url = "http://127.0.0.1:9000/skill/get-all-skills-by-student-id/" + studentId;
+        const url = "http://127.0.0.1:9000/skill/get-all-unique-skills-by-student-id/" + studentId;
         const response = await axios.get(url, {
             headers: {
                 'Content-Type': 'application/json',
@@ -259,6 +323,84 @@ async function getSkillsByStudent(jwtToken, studentId){
         });
         return response.data;
     } catch(e){
+        return null;
+    }
+}
+
+async function getCertificationsByStudent(jwtToken, studentId){
+    try{
+        const url = "http://127.0.0.1:9000/certification/get-unique-certifications-by-student-id/" + studentId;
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + jwtToken
+            }
+        });
+        return response.data;
+    } catch(e){
+        return null;
+    }
+}
+
+async function getInternshipsByStudent(jwtToken, studentId){
+    try{
+        const url = "http://127.0.0.1:9000/internship/get-unique-internships-by-student-id/" + studentId;
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + jwtToken
+            }
+        });
+        return response.data;
+    } catch(e){
+        return null;
+    }
+}
+
+async function getUniqueStudentIdsBySKill(jwtToken){
+    try{
+        const url = "http://127.0.0.1:9000/skill/get-all-unique-student-ids-by-skill";
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + jwtToken
+            }
+        });
+        return response.data;
+    }
+    catch(e){
+        return null;
+    }
+}
+
+async function getUniqueStudentIdsByCertifcation(jwtToken){
+    try{
+        const url = "http://127.0.0.1:9000/certification/get-all-unique-student-ids-by-certification";
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + jwtToken
+            }
+        });
+        return response.data;
+    }
+    catch(e){
+        return null;
+    }
+}
+
+async function getUniqueStudentIdsByInternship(jwtToken){
+    try{
+        const url = "http://127.0.0.1:9000/internship/get-all-unique-student-ids-by-internship";
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + jwtToken
+            }
+        });
+        return response.data;
+    }
+    catch(e){
         return null;
     }
 }

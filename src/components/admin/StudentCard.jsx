@@ -7,7 +7,7 @@ export default function StudentCard({ student }) {
             <div className="card-body">
                 <div className="row">
                     <div className="col-sm-2 col-12 justify-content-sm-end align-items-sm-top d-flex">
-                        <img src={student.profilePicture} alt="No profile picture" className='img-fluid img-student-profile' />
+                        <img src={student.profilePicture} alt="No profile pic" className='img-fluid img-student-profile' />
                     </div>
                     <div className="col-sm-10 mt-sm-0 mt-2 col-12">
                         <h5><b>{student.studentName}</b> | {student.studentId}</h5>
@@ -23,10 +23,32 @@ export default function StudentCard({ student }) {
                             </div>
                         </div>
                         <div className="text-muted">
-                            Skills: Mobile App Development | Certification: AWS, Cisco, Oracle | One Internship experience
+                            Skills: {student.skills.length?
+                            <>
+                            {student.skills.map((skill, index) => (
+                                <span key={index}>
+                                    {skill}
+                                    {index < student.skills.length - 1 && ", "}
+                                </span>
+                            ))}
+                            </>
+                            :"None"} | Certification: {student.certifications.length?
+                                <>
+                                {student.certifications.map((certification, index) => (
+                                    <span key={index}>
+                                        {certification}
+                                        {index < student.certifications.length - 1 && ", "}
+                                    </span>
+                                ))}
+                                </>
+                                :"None"} | {student.internships.length?
+                                <>
+                                    {student.internships.length} {student.internships.length > 1?"Internship(s)":"Internship"} Completed.
+                                </>
+                                : "No internships."}
                         </div>
-                        <div className="text-muted mt-1">
-                            <u>See Full Profile</u>
+                        <div className="vaagdevi_link_colors mt-1">
+                            See Full Profile
                         </div>
                     </div>
                 </div>
