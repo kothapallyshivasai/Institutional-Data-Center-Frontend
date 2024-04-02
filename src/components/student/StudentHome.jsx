@@ -218,7 +218,7 @@ export default function StudentHome() {
             e.target.achievementFile.value = null;
         } catch (error) {
             console.log(error)
-            swal("Error!", "Something Went Wrong, Please try again...", "error");
+            swal("Error!", "Error Uploading Image, Please upload lower than 1MB", "error");
             const modal = document.getElementById("achievementModalButton");
             modal.click();
         }
@@ -254,7 +254,7 @@ export default function StudentHome() {
             e.target.verification_url.value = "";
         } catch (error) {
             console.log(error)
-            swal("Error!", "Something Went Wrong, Please try again...", "error");
+            swal("Error!", "Something went wrong, Please try again...", "error");
             const modal = document.getElementById("projectModalButton");
             modal.click();
         }
@@ -295,7 +295,7 @@ export default function StudentHome() {
             e.target.internshipType.value = "";
         } catch (error) {
             console.log(error)
-            swal("Error!", "Something Went Wrong, Please try again...", "error");
+            swal("Error!", "Error Uploading Image, Please upload lower than 1MB", "error");
             const modal = document.getElementById("internshipModalButton");
             modal.click();
         }

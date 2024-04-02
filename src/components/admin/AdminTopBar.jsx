@@ -27,7 +27,7 @@ export default function AdminTopBar() {
                         </Link>
                         <ul className="dropdown-menu mt-3">
                             <li><Link className="dropdown-item hover-animation" to="/admin/student">Students</Link></li>
-                            <li><Link className="dropdown-item hover-animation" to="/admin/student">Faculty</Link></li>
+                            <li><Link className="dropdown-item hover-animation" to="/admin/faculty">Faculty</Link></li>
                             <li><Link onClick={() => logoutUser()} className="dropdown-item hover-animation" to="/login">Logout</Link></li>
                         </ul>
                     </li>

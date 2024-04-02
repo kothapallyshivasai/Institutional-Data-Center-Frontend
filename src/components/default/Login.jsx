@@ -1,16 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import logo from "../images/logo/vaagdevi_logo.png"
 import AuthContext from '../auth/AuthContext'
 import { Helmet } from 'react-helmet'
 import "../css/login_page.css"
 
 export default function Login() { 
-    let {jwtToken} = useContext(AuthContext)
-    let {loginUser} = useContext(AuthContext)
-    let {redirectUser} = useContext(AuthContext)
-    let [student, setStudent] = useState(true);
-    let [faculty, setFaculty] = useState(false);
-    let [admin, setAdmin] = useState(false);
+    const {jwtToken} = useContext(AuthContext)
+    const {loginUser} = useContext(AuthContext)
+    const {redirectUser} = useContext(AuthContext)
+    const [student, setStudent] = useState(true);
+    const [faculty, setFaculty] = useState(false);
+    const [admin, setAdmin] = useState(false);
+    
+    const [loading, setLoading] = useState(true);
+    
 
     if(jwtToken){
         redirectUser(null);
@@ -39,7 +42,7 @@ export default function Login() {
                                     <div className="row">
                                         <div className="col-sm-3 col-4 offset-sm-1">
                                             {student ? 
-                                                <button className='btn btn-success social_logos titles'>Student</button> :
+                                                <button className='btn vaagdevi_color_clicked social_logos titles'>Student</button> :
                                                 <p className='p-titles' onClick={() => {
                                                     setStudent(true)
                                                     setFaculty(false)
@@ -49,7 +52,7 @@ export default function Login() {
                                         </div>
                                         <div className="col-sm-3 col-4 offset-sm-1">
                                             {faculty ? 
-                                                <button className='btn btn-success social_logos titles'>Faculty</button> :
+                                                <button className='btn vaagdevi_color_clicked social_logos titles'>Faculty</button> :
                                                 <p className='p-titles' onClick={() => {
                                                     setStudent(false)
                                                     setFaculty(true)
@@ -59,7 +62,7 @@ export default function Login() {
                                         </div>
                                         <div className="col-sm-3 col-4 offset-sm-1">
                                             {admin ? 
-                                                <button className='btn btn-success social_logos titles'>Admin</button> :
+                                                <button className='btn vaagdevi_color_clicked social_logos titles'>Admin</button> :
                                                 <p className='p-titles' onClick={() => {
                                                     setStudent(false)
                                                     setFaculty(false)
@@ -71,7 +74,7 @@ export default function Login() {
                                     <hr />
                                     <div className="row mt-4">
                                         <div className="col-10 offset-1">
-                                            <form method='post' onSubmit={e => loginUser(e)}> 
+                                            <form method='post' onSubmit={e => loginUser(e, setLoading)}> 
                                                 <div className="mb-3">
                                                     <label htmlFor="username" className="form-label">{
                                                         student ? "Student ID" :
@@ -98,10 +101,19 @@ export default function Login() {
                                                     <span className='register-now'>Forgot Password?</span>
                                                 </div>
 
-                                                <button
-                                                    type="submit" className="btn btn-primary btn-block col-12 social_logos">
-                                                        <h5>Sign in</h5>
-                                                </button>
+                                                {loading?
+                                                    <button
+                                                        type="submit" className="btn btn-primary btn-block col-12 social_logos">
+                                                            <h5>Sign in</h5>
+                                                    </button>
+                                                :
+                                                    <button
+                                                        type="submit" disabled className="btn btn-primary btn-block col-12 social_logos">
+                                                            <h5><div className="spinner-border" role="status"></div> Please wait...</h5>
+                                                    </button>
+                                                }
+                                                
+
                                             </form>
                                             <div className="col-12 mt-2 text-center register_now text-muted">
                                                 Don't have an account yet? <span className='register-now'>Register for free</span>

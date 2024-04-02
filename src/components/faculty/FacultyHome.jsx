@@ -18,15 +18,18 @@ import Modals from './FacultyModals';
 export default function FacultyHome() {
     const {logoutUser, jwtToken, redirectUser} = useContext(AuthContext)
     const [username, setUsername] = useState("")
+
     const [faculty, setFaculty] = useState({});
     const [profilePictureError, setProfilePictureError] = useState(false);
     const [socialProfileError, setSocialProfileError] = useState(true)
+    
     const [social, setSocial] = useState({})
     const [certifications, setCertifications] = useState([]);
     const [experiences, setExperiences] = useState([]);
     const [researchPapers, setResearchPapers] = useState([]);
     const [projects, setProjects] = useState([])
     const [personalDocuments, setPersonalDocuments] = useState([])
+    
     const [renderPage, setRenderPage] = useState(false); 
     const [addDocuments, setAddDocuments] = useState(true);
 
@@ -148,7 +151,7 @@ export default function FacultyHome() {
             modal.click();
         } catch (error) {
             console.log(error)
-            swal("Error!", "Something Went Wrong, Please try again...", "error");
+            swal("Error!", "Error Uploading Image, Please upload lower than 1MB", "error");
             const modal = document.getElementById("achievementModalButton");
             modal.click();
         }
@@ -354,7 +357,7 @@ export default function FacultyHome() {
             modal.click();
         } catch (error) {
             console.log(error)
-            swal("Error!", "Something Went Wrong, Please try again...", "error");
+            swal("Error!", "Error Uploading Image, Please upload lower than 1MB", "error");
             const modal = document.getElementById("personalDocumentModalButton");
             modal.click();
         }
@@ -476,7 +479,7 @@ export default function FacultyHome() {
                                             {faculty.designation}, Vaagdevi College of Engineering
                                         </div>
                                         <div className="row mt-2">
-                                            <div className="col-lg-3 col-sm-6 col-12 text-muted">
+                                            <div className="col-lg-4 col-sm-6 col-12 text-muted">
                                                 <img src={telephone_logo} alt="telephone_logo" className='img-fluid icons-home-page' /> {faculty.contactNumber}
                                             </div>
                                             <div className="col-lg-6 col-sm-6 col-12 text-muted">

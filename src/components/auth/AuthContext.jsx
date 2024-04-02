@@ -51,9 +51,10 @@ export const AuthProvider = ({ children }) => {
       }
   }
 
-  const loginUser = async (e) => {
+  const loginUser = async (e, setLoading) => {
     e.preventDefault();
     try {
+      setLoading(false);
       const response = await axios.post(
         'http://127.0.0.1:9000/auth/login',
         {
@@ -66,9 +67,9 @@ export const AuthProvider = ({ children }) => {
           },
         }
       );
-
+  
       const data = response.data;
-
+  
       if (response.status === 200) {
         setjwtToken(data.jwtToken);
         localStorage.setItem('jwtToken', JSON.stringify(data.jwtToken));
@@ -77,6 +78,8 @@ export const AuthProvider = ({ children }) => {
       swal("Error!", "Username or Password is Incorrect!", "error");
       e.target.username.value = "";
       e.target.password.value = "";
+    } finally {
+      setLoading(true);
     }
   };
 

@@ -39,67 +39,11 @@ export default function FilterBar({setDepartmentChoice, setCgpaChoice, setBatchC
           <hr />
 
 
-          <div>
-            <b>Technical Achievements</b>
-            {uniqueCertifications.slice(0, showAllCertifications ? uniqueCertifications.length : 3).map((certification, index) => (
-              <div className={`form-check ${index === 0 ? 'mt-2' : ''}`} key={index}>
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  id={`c${index}`}
-                  name="certification"
-                  onClick={() => setCertificationChoice(certification)}
-                />
-                <label className="form-check-label" htmlFor={`c${index}`}>
-                  {certification}
-                </label>
-                <div className={index === uniqueCertifications.length - 1 ? 'mb-2' : ''}></div>
-              </div>
-            ))}
-            </div>
-
-            {uniqueCertifications.length > 3 && (
-              <>
-                <div className='vaagdevi_link_colors mb-3' onClick={() => setShowAllCertifications(!showAllCertifications)}>
-                  {showAllCertifications ? 'View less?' : 'View more?'}
-                </div>
-              </>
-            )}
-
-
-            <div>
-              <b>Non-Technical Achievements</b>
-              {uniqueCertifications2.slice(0, showAllCertifications2 ? uniqueCertifications2.length : 3).map((certification, index) => (
-                <div className={`form-check ${index === 0 ? 'mt-2' : ''}`} key={index}>
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    id={`c${index}`}
-                    name="certification"
-                    onClick={() => setCertificationChoice(certification)}
-                  />
-                  <label className="form-check-label" htmlFor={`c${index}`}>
-                    {certification}
-                  </label>
-                  <div className={index === uniqueCertifications2.length - 1 ? 'mb-2' : ''}></div>
-                </div>                
-              ))}
-            </div>
-
-            {uniqueCertifications2.length > 3 && (
-              <>
-                <div className='vaagdevi_link_colors mb-3' onClick={() => setShowAllCertifications2(!showAllCertifications2)}>
-                  {showAllCertifications2 ? 'View less?' : 'View more?'}
-                </div>
-              </>
-            )}
-
-
           <b>Batch & Dept</b>  
           <div className="row mt-1">
             {uniqueBatches.map((batch, index) => (
               <div key={index} className="col-3 mb-2">
-                  <button className={`btn border-secondary vaagdevi_color_clicked ${batchChoice === batch && 'bg-danger text-white'}`} onClick={() => setBatchChoice(batch)}>{batch}</button>
+                  <button className={`btn border-secondary ${batchChoice === batch ? 'bg-danger text-white': 'vaagdevi_color_clicked'}`} onClick={() => setBatchChoice(batch)}>{batch}</button>
               </div>
             ))}
           </div>
@@ -146,24 +90,79 @@ export default function FilterBar({setDepartmentChoice, setCgpaChoice, setBatchC
           </div>
 
 
-          <b>Skills</b>
-          <div>
-            {uniqueSkills.slice(0, showAllSkills ? uniqueSkills.length : 3).map((skill, index) => (
-              <div className={`form-check ${index === 0 ? 'mt-2' : ''}`} key={index}>
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  id={`sk${index}`}
-                  name="skills"
-                  onChange={() => setSkillChoice(skill)}
-                />
-                <label className="form-check-label" htmlFor={`sk${index}`}>
-                  {skill}
-                </label>
-                <div className={index === uniqueSkills.length - 1 ? 'mb-2' : ''}></div>
+          <b>Technical Achievements</b>
+          {uniqueCertifications.slice(0, showAllCertifications ? uniqueCertifications.length : 3).map((certification, index) => (
+            <div className={`form-check ${index === 0 ? 'mt-2' : ''}`} key={index}>
+              <input
+                className="form-check-input"
+                type="radio"
+                id={`c${index}`}
+                name="certification"
+                onClick={() => setCertificationChoice(certification)}
+              />
+              <label className="form-check-label" htmlFor={`c${index}`}>
+                {certification}
+              </label>
+              <div className={index === uniqueCertifications.length - 1 ? 'mb-2' : ''}></div>
+            </div>
+          ))}
+
+
+          {uniqueCertifications.length > 3 && (
+            <>
+              <div className='vaagdevi_link_colors mb-3' onClick={() => setShowAllCertifications(!showAllCertifications)}>
+                {showAllCertifications ? 'View less?' : 'View more?'}
               </div>
-            ))}
-          </div>
+            </>
+          )}
+
+
+            
+          <b>Non-Technical Achievements</b>
+          {uniqueCertifications2.slice(0, showAllCertifications2 ? uniqueCertifications2.length : 3).map((certification, index) => (
+            <div className={`form-check ${index === 0 ? 'mt-2' : ''}`} key={index}>
+              <input
+                className="form-check-input"
+                type="radio"
+                id={`c${index}`}
+                name="certification"
+                onClick={() => setCertificationChoice(certification)}
+              />
+              <label className="form-check-label" htmlFor={`c${index}`}>
+                {certification}
+              </label>
+              <div className={index === uniqueCertifications2.length - 1 ? 'mb-2' : ''}></div>
+            </div>                
+          ))}
+            
+
+          {uniqueCertifications2.length > 3 && (
+            <>
+              <div className='vaagdevi_link_colors mb-3' onClick={() => setShowAllCertifications2(!showAllCertifications2)}>
+                {showAllCertifications2 ? 'View less?' : 'View more?'}
+              </div>
+            </>
+          )}
+
+
+
+
+          <b>Skills</b>
+          {uniqueSkills.slice(0, showAllSkills ? uniqueSkills.length : 3).map((skill, index) => (
+            <div className={`form-check ${index === 0 ? 'mt-2' : ''}`} key={index}>
+              <input
+                className="form-check-input"
+                type="radio"
+                id={`sk${index}`}
+                name="skills"
+                onChange={() => setSkillChoice(skill)}
+              />
+              <label className="form-check-label" htmlFor={`sk${index}`}>
+                {skill}
+              </label>
+              <div className={index === uniqueSkills.length - 1 ? 'mb-2' : ''}></div>
+            </div>
+          ))}
 
           {uniqueSkills.length > 3 && (
             <>

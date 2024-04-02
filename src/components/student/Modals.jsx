@@ -67,13 +67,14 @@ export default function Modals({
                             </div>
                             <div className="mb-3">
                                 <div className="form-check">
-                                    <input required className="form-check-input" type="checkbox" value="t&c" id="t&c" />
-                                    <label className="form-check-label" htmlFor="t&c"> <u>Terms & Conditions</u> </label>
+                                    <input required className="form-check-input mt-4" type="checkbox" value="t&c" id="t&c" />
+                                    <label className="form-check-label mt-4" htmlFor="t&c"> <u>I hereby declare that all the above-mentioned information , documents are true and correct to the best of my 
+knowledge.</u> </label>
                                 </div>
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Upload Project</button>
+                            <button type="submit" className="btn btn-danger">Upload Project</button>
                         </div>
                     </form>
                     </div>
@@ -112,13 +113,14 @@ export default function Modals({
                             </div>
                             <div className="mb-3">
                                 <div className="form-check">
-                                    <input required className="form-check-input" type="checkbox" value="t&c2" id="t&c2" />
-                                    <label className="form-check-label" htmlFor="t&c2"> <u>Terms & Conditions</u> </label>
+                                    <input required className="form-check-input mt-4" type="checkbox" value="t&c2" id="t&c2" />
+                                    <label className="form-check-label mt-4" htmlFor="t&c2"> <u>I hereby declare that all the above-mentioned information , documents are true and correct to the best of my 
+knowledge.</u> </label>
                                 </div>
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Upload Skill</button>
+                            <button type="submit" className="btn btn-danger">Upload Skill</button>
                         </div>
                     </form>
                     </div>
@@ -233,14 +235,15 @@ export default function Modals({
                             </div>
                             <div className="mb-3">
                                 <div className="form-check">
-                                    <input required className="form-check-input" type="checkbox" value="t&c3" id="t&c3" />
-                                    <label className="form-check-label" htmlFor="t&c3"> <u>Terms & Conditions</u> </label>
+                                    <input required className="form-check-input mt-4" type="checkbox" value="t&c3" id="t&c3" />
+                                    <label className="form-check-label mt-4" htmlFor="t&c3"> <u>I hereby declare that all the above-mentioned information , documents are true and correct to the best of my 
+knowledge.</u> </label>
                                 </div>
                             </div>
                             
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Upload Internship</button>
+                            <button type="submit" className="btn btn-danger">Upload Internship</button>
                         </div>
                     </form>
                     </div>
@@ -324,14 +327,15 @@ export default function Modals({
                             </div>
                             <div className="mb-3">
                                 <div className="form-check">
-                                    <input required className="form-check-input" type="checkbox" value="t&c4" id="t&c4" />
-                                    <label className="form-check-label" htmlFor="t&c4"> <u>Terms & Conditions</u> </label>
+                                    <input required className="form-check-input mt-4" type="checkbox" value="t&c4" id="t&c4" />
+                                    <label className="form-check-label mt-4" htmlFor="t&c4"> <u>I hereby declare that all the above-mentioned information , documents are true and correct to the best of my 
+knowledge.</u> </label>
                                 </div>
                             </div>
                             
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Upload Achievment</button>
+                            <button type="submit" className="btn btn-danger">Upload Achievment</button>
                         </div>
                     </form>
                     </div>

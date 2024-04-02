@@ -189,11 +189,12 @@ export default function AdminHome() {
             });
         }
 
-    
+
         setModifiedStudents(filteredStudents);
+        handlePageChange(1)
     }, [departmentChoice, cgpaChoice, batchChoice, skillChoice, certificationChoice, internshipChoice, totalStudents])
     
-    validateAdmin()
+    validateAdmin(jwtToken, logoutUser)
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -222,7 +223,7 @@ export default function AdminHome() {
                         />
                     </div>
                     <div className="col-xl-7 col-lg-8 offset-xl-1">
-                        <PageSelection modifiedStudents={modifiedStudents} itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage} />
+                        <PageSelection modifiedStudents={modifiedStudents} itemsPerPage={itemsPerPage} downloadStudents={downloadStudents} jwtToken={jwtToken} setItemsPerPage={setItemsPerPage} />
                         {modifiedStudents.length === 0 ? (
                             <p className='mt-5 text-center'>No students available</p>
                         ) : (
@@ -422,5 +423,30 @@ async function getUniqueStudentIdsByInternship(jwtToken){
     }
     catch(e){
         return null;
+    }
+}
+
+async function downloadStudents(jwtToken) {
+    try {
+        const url = "http://127.0.0.1:9000/student/excel";
+
+        const response = await axios.get(url, {
+            responseType: 'blob',
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`,
+            },
+        });
+
+        const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const urlObject = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = urlObject;
+        link.setAttribute('download', 'students.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(urlObject);
+    } catch (error) {
+        console.error('Error downloading file:', error);
     }
 }

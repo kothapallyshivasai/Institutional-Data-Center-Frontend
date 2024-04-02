@@ -60,3 +60,10 @@ body{
    padding-left: 0;
    padding-right: 0;
 }
+
+
+.vaagdevi_color_clicked,
+.vaagdevi_color_clicked:hover {
+    background-color: rgb(180, 32, 32);
+    color: white;
+}

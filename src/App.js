@@ -9,6 +9,8 @@ const LazyStudentHome = React.lazy(() => import('./components/student/StudentHom
 const LazyFacultyHome = React.lazy(() => import('./components/faculty/FacultyHome'));
 const LazyAdminHome = React.lazy(() => import('./components/admin/AdminHome'));
 const LazyWatchStudent = React.lazy(() => import('./components/admin/WatchStudent'));
+const LazyWatchFaculty = React.lazy(() => import('./components/admin/WatchFaculty'));
+const LazyFacultyAdminHome = React.lazy(() => import('./components/admin/FacultyAdminHome')); 
 
 function App() {
   return (
@@ -29,9 +31,15 @@ function App() {
             <Route path="/admin/student" element={<Suspense fallback={<div className="spinner-container">
                                                                 <div className="spinner-border" role="status"></div>
                                                               </div>}><LazyAdminHome /></Suspense>} />
+            <Route path="/admin/faculty" element={<Suspense fallback={<div className="spinner-container">
+                                                                <div className="spinner-border" role="status"></div>
+                                                              </div>}><LazyFacultyAdminHome /></Suspense>} />
             <Route path="/admin/student/:studentId" element={<Suspense fallback={<div className="spinner-container">
                                                                 <div className="spinner-border" role="status"></div>
                                                               </div>}><LazyWatchStudent /></Suspense>} />
+            <Route path="/admin/faculty/:facultyId" element={<Suspense fallback={<div className="spinner-container">
+                                                                <div className="spinner-border" role="status"></div>
+                                                              </div>}><LazyWatchFaculty /></Suspense>} />
                                                         
           </Routes>
         </AuthProvider>

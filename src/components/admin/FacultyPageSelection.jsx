@@ -1,15 +1,15 @@
 import React from 'react'
 
-export default function PageSelection({setItemsPerPage, itemsPerPage, modifiedStudents, downloadStudents, jwtToken}) {
+export default function FacultyPageSelection({setItemsPerPage, itemsPerPage, modifiedfaculty, downloadFaculty, jwtToken}) {
   return (
     <div>
         <div className="row">
             <div className="col-xl-3 col-lg-6 mt-lg-0 mt-5">
-                <h3 className='d-flex align-items-start justify-content-start'><b>{modifiedStudents.length} Students</b></h3>
+                <h3 className='d-flex align-items-start justify-content-start'><b>{modifiedfaculty.length} Faculty</b></h3>
             </div>
             <div className="col-xl-3 col-lg-6 offset-xl-6">
                 <div className="d-flex align-items-end justify-content-end">
-                    <button className="btn" onClick={() => downloadStudents(jwtToken)}><i className="bi bi-download"></i></button>
+                    <button className="btn" onClick={() => downloadFaculty(jwtToken)}><i className="bi bi-download"></i></button>
                     <select
                         className="form-select form-select-lg"
                         name="pagecount"

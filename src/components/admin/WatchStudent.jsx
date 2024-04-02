@@ -176,7 +176,7 @@ export default function WatchStudent() {
 
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid'> 
         <AdminTopBar />
         <Helmet>
             <title>Student - {studentId}</title>

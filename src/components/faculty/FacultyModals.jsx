@@ -81,7 +81,7 @@ export default function FacultyModals({uploadAchievement, uploadExperience, uplo
                             
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Upload Certification</button>
+                            <button type="submit" className="btn btn-danger">Upload Certification</button>
                         </div>
                     </form>
                     </div>
@@ -176,7 +176,7 @@ export default function FacultyModals({uploadAchievement, uploadExperience, uplo
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Upload Experience</button>
+                            <button type="submit" className="btn btn-danger">Upload Experience</button>
                         </div>
                     </form>
                     </div>
@@ -251,7 +251,7 @@ export default function FacultyModals({uploadAchievement, uploadExperience, uplo
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Upload Paper</button>
+                            <button type="submit" className="btn btn-danger">Upload Paper</button>
                         </div>
                     </form>
                     </div>
@@ -317,7 +317,7 @@ export default function FacultyModals({uploadAchievement, uploadExperience, uplo
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Upload Project</button>
+                            <button type="submit" className="btn btn-danger">Upload Project</button>
                         </div>
                     </form>
                     </div>
@@ -358,7 +358,7 @@ export default function FacultyModals({uploadAchievement, uploadExperience, uplo
                             
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">Upload Social Profile</button>
+                            <button type="submit" className="btn btn-danger">Upload Social Profile</button>
                         </div>
                     </form>
                     </div>
