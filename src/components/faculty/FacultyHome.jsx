@@ -120,6 +120,7 @@ export default function FacultyHome() {
                 }
             });
             setRenderPage(true)
+            swal("Success!", "Image has been successfully uploaded!", "success");
         } catch (error) {
             swal("Error!", "Error Uploading Image, Please upload lower than 1MB", "error");
         }
@@ -644,12 +645,16 @@ export default function FacultyHome() {
                         </div>
                         <div className="collapse shadow" id="personalDocumentsDropdown">
                             <div className="row mt-1 mb-1">
-                                <div className="col-6 d-flex justify-content-center text-align-center">
-                                    <img src={personalDocuments.aadharCard} alt="Aadhar Card" className='img-fluid' />
-                                </div>
-                                <div className="col-6 d-flex justify-content-center text-align-center">
-                                    <img src={personalDocuments.panCard} alt="Pan Card" className='img-fluid' />
-                                </div>
+                                {addDocuments && 
+                                    <>
+                                        <div className="col-6 d-flex justify-content-center text-align-center">
+                                            <img src={personalDocuments.aadharCard} alt="Aadhar Card" className='img-fluid' />
+                                        </div>
+                                        <div className="col-6 d-flex justify-content-center text-align-center">
+                                            <img src={personalDocuments.panCard} alt="Pan Card" className='img-fluid' />
+                                        </div>
+                                    </>
+                                }
                             </div>
                         </div>
 

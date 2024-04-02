@@ -328,6 +328,7 @@ export default function StudentHome() {
                 }
             });
             swal("Success!", "Image upload was successful", "success");
+            setRenderPage(true)
         } catch (error) {
             swal("Error!", "Error Uploading Image, Please upload lower than 1MB", "error");
         }
