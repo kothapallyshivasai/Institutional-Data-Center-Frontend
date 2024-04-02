@@ -337,7 +337,7 @@ export default function StudentHome() {
     return (
         <div className="container-fluid">
             <Helmet>
-                <title>Student Home</title>
+                <title>Mini</title>
             </Helmet>
             <div className="row mt-1 shadow">
                 <div className="col-lg-3 col-md-4 col-sm-5 col-6">
