@@ -1,23 +1,25 @@
-import swal from "sweetalert";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import user_logo from "../images/logo/profile_user_logo.png";
+import logo from "../images/logo/vaagdevi_logo.png";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import AuthContext from "../auth/AuthContext";
 import axios from "axios";
-import AdminTopBar from "./AdminTopBar";
 import "../css/student_home.css";
 import { Helmet } from "react-helmet";
 import email_logo from "../images/logo/email_logo.png";
 import telephone_logo from "../images/logo/telephone_logo.png";
 import github_student_logo from "../images/logo/github_student_logo.png";
 import linkedin_student_logo from "../images/logo/linkedin_student_logo.png";
-import ChangePasswordModal from "./ChangePasswordModal";
 
-export default function WatchStudent() {
+export default function HodStudentView() {
   const { studentId } = useParams();
   const { jwtToken, logoutUser, redirectUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [student, setStudent] = useState({});
+  const [hod, setHod] = useState(false);
+  const [faculty, setFaculty] = useState({});
 
   const [skills, setSkills] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -28,8 +30,31 @@ export default function WatchStudent() {
     if (!jwtToken) {
       logoutUser();
     }
-    redirectUser("ADMIN");
+    redirectUser("FACULTY");
 
+    async function getFacultyObject() {
+      try {
+        const url =
+          "http://127.0.0.1:9000/faculty/get-faculty/" +
+          jwtDecode(jwtToken).sub;
+        const response = await axios.get(url, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + jwtToken,
+          },
+        });
+        setFaculty(response.data);
+        if (response.data.designation === "HOD") {
+          setHod(true);
+        } else {
+          navigate("/faculty");
+        }
+      } catch (e) {
+        logoutUser();
+      }
+    }
+
+    getFacultyObject();
     getStudentObject();
     getAchievements();
     getProjects();
@@ -49,7 +74,11 @@ export default function WatchStudent() {
       setStudent(response.data);
 
       if (!response.data.studentId) {
-        navigate("/admin/student");
+        navigate("/faculty");
+      }
+
+      if (response.data.department !== faculty.department) {
+        navigate("/faculty");
       }
 
       let blob = await getStudentImage(response.data.profilePicture);
@@ -62,7 +91,7 @@ export default function WatchStudent() {
       }
       setStudent((prevStudent) => ({ ...prevStudent, profilePicture: null }));
     } catch (e) {
-      navigate("/admin/student");
+      logoutUser();
     }
   }
 
@@ -195,63 +224,77 @@ export default function WatchStudent() {
     }
   }
 
-  async function uploadPassword(e) {
-    e.preventDefault();
-
-    if (e.target.currentPassword.value === e.target.newPassword.value) {
-      swal("Error!", "Both old and new passwords are same!", "error");
-      e.target.currentPassword.value = "";
-      e.target.newPassword.value = "";
-      e.target.newPasswordAgain.value = "";
-      return;
-    }
-
-    if (e.target.newPassword.value !== e.target.newPasswordAgain.value) {
-      swal("Error!", "Both new passwords are not same!", "error");
-      e.target.currentPassword.value = "";
-      e.target.newPassword.value = "";
-      e.target.newPasswordAgain.value = "";
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:9000/student/change-password",
-        {
-          currentPassword: e.target.currentPassword.value,
-          newPassword: e.target.newPassword.value,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + jwtToken,
-          },
-        }
-      );
-      if (response.data) {
-        swal("Error!", "Your current password is incorrect", "error");
-        e.target.currentPassword.value = "";
-        e.target.newPassword.value = "";
-        e.target.newPasswordAgain.value = "";
-        return;
-      }
-      swal("Good job!", "Password changed succesfully!!", "success");
-      const modal = document.getElementById("passwordModalButton");
-      modal.click();
-    } catch (error) {
-      swal("Error!", "Something Went Wrong, Please try again...", "error");
-      const modal = document.getElementById("passwordModalButton");
-      modal.click();
-    } finally {
-      e.target.currentPassword.value = "";
-      e.target.newPassword.value = "";
-      e.target.newPasswordAgain.value = "";
-    }
-  }
-
   return (
     <div className="container-fluid">
-      <AdminTopBar />
+      <div className="row mt-1 shadow">
+        <div className="col-lg-3 col-md-4 col-sm-5 col-12">
+          <img
+            src={logo}
+            alt="vaagdevi_logo"
+            className="img-fluid vaagdevi_logo"
+          />
+        </div>
+        <div className="col-lg-9 mb-2 col-md-8 col-sm-7 col-12 d-flex justify-content-end">
+          <div className="align-items-center">
+            <li className="nav-item btn border-secondary navbar_button dropdown mt-3 li_padding">
+              <Link
+                className="nav-link dropdown-toggle"
+                to="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src={user_logo}
+                  alt="user_logo"
+                  className="img-fluid user_logo"
+                />
+                {" " + faculty.facultyName}
+              </Link>
+              <ul className="dropdown-menu mt-3">
+                <li>
+                  <Link className="dropdown-item hover-animation" to="/faculty">
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    data-bs-toggle="modal"
+                    data-bs-target="#passwordBackdrop"
+                    className="dropdown-item hover-animation"
+                    to="#"
+                  >
+                    Change Password
+                  </Link>
+                </li>
+                {hod && (
+                  <>
+                    <li>
+                      <Link
+                        data-bs-toggle="modal"
+                        data-bs-target="#studentPasswordBackdrop"
+                        className="dropdown-item hover-animation"
+                        to="#"
+                      >
+                        Student Passwords
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <Link
+                    onClick={() => logoutUser()}
+                    className="dropdown-item hover-animation"
+                    to="#"
+                  >
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          </div>
+        </div>
+      </div>
       <Helmet>
         <title>Student - {studentId}</title>
       </Helmet>
@@ -510,7 +553,6 @@ export default function WatchStudent() {
           </div>
         </div>
       </div>
-      <ChangePasswordModal uploadPassword={uploadPassword} />
     </div>
   );
 }
