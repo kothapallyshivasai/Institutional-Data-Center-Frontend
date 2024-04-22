@@ -191,7 +191,7 @@ export default function FacultyHome() {
     } catch (error) {
       swal(
         "Error!",
-        "Error Uploading Image, Please upload lower than 1MB",
+        "Error Uploading Image, Please upload lower than 10MB",
         "error"
       );
     }
@@ -225,7 +225,7 @@ export default function FacultyHome() {
       console.log(error);
       swal(
         "Error!",
-        "Error Uploading Image, Please upload lower than 1MB",
+        "Error Uploading Image, Please upload lower than 10MB",
         "error"
       );
       const modal = document.getElementById("achievementModalButton");
@@ -444,7 +444,7 @@ export default function FacultyHome() {
       console.log(error);
       swal(
         "Error!",
-        "Error Uploading Image, Please upload lower than 1MB",
+        "Error Uploading Image, Please upload lower than 10MB",
         "error"
       );
       const modal = document.getElementById("personalDocumentModalButton");

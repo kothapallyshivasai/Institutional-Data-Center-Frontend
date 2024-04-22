@@ -137,7 +137,7 @@ export default function Login() {
                         {loading ? (
                           <button
                             type="submit"
-                            className="btn btn-primary btn-block col-12 social_logos"
+                            className="btn btn-danger btn-block col-12 social_logos vaagdevi_color_clicked "
                           >
                             <h5>Sign in</h5>
                           </button>
@@ -145,7 +145,7 @@ export default function Login() {
                           <button
                             type="submit"
                             disabled
-                            className="btn btn-primary btn-block col-12 social_logos"
+                            className="btn btn-danger btn-block col-12 social_logos vaagdevi_color_clicked"
                           >
                             <h5>
                               <div

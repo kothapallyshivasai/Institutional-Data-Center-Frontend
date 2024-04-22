@@ -293,7 +293,7 @@ export default function StudentHome() {
       console.log(error);
       swal(
         "Error!",
-        "Error Uploading Image, Please upload lower than 1MB",
+        "Error Uploading Image, Please upload lower than 10MB",
         "error"
       );
       const modal = document.getElementById("achievementModalButton");
@@ -374,7 +374,7 @@ export default function StudentHome() {
       console.log(error);
       swal(
         "Error!",
-        "Error Uploading Image, Please upload lower than 1MB",
+        "Error Uploading Image, Please upload lower than 10MB",
         "error"
       );
       const modal = document.getElementById("internshipModalButton");
@@ -422,7 +422,7 @@ export default function StudentHome() {
     } catch (error) {
       swal(
         "Error!",
-        "Error Uploading Image, Please upload lower than 1MB",
+        "Error Uploading Image, Please upload lower than 10MB",
         "error"
       );
     }
